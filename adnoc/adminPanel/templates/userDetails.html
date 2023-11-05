@@ -1,0 +1,157 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block css %}
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+      <div class="card" >
+        <div class="card-body" style="border-radius: 5px;">
+          <h4 class="card-title ">User Details</h4>
+          <div class="d-flex flex-row gap-2">
+              <input type="text" class="rounded py-3 px-4 border-0" style="width: 100%; background-color: lavender;" placeholder="Search User" id="searchInput">
+              <button class="btn btn-dark rounded">Submit</button>
+          </div>
+          </div>
+            <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Mobile Number</th>
+                  <th>Withdrawable Amount</th>
+                  <th>Recharge Amount</th>
+                  <th>Referal Code</th>
+                  <th>Refered By</th>
+                  <th>Edit User Details</th>
+                  <th>Bank Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for ud in page_obj %}
+                <tr>
+                  <td class="username">{{ ud.username }}</td>
+                  <td>{{ ud.mobile_number }}</td>
+                  <td>{{ ud.withdrawable_amount }}</td>
+                  <td>{{ ud.recharge_amount }}</td>
+                  <td>{{ ud.referal_code }}</td>
+                  <td>{{ ud.refered_by.username }}</td>
+                  <td>
+                    <button type="button"  class="btn btn-dark" onclick="location.href='{% url 'editUserDetails' uid=ud.id %}'">
+                      Edit User
+                    </button>
+                  </td>
+                  <td>
+                    <button type="button"  class="btn btn-dark open-modal" data-toggle="modal"  data-id="{{ ud.id }}">
+                      View
+                    </button>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Bank Details</h5>
+                    
+                  </div>
+                  <div class="modal-body">
+                    <div id="modal-content">
+                    </div>
+                    {% comment %} <p>Account Number : {{ bankDetails.accnum }} </p>
+                    <p>Account Name : {{ bankDetails.accname }} </p>
+                    <p>IFCS : {{ bankDetails.ifsc }} </p>
+                    <p>Account Type : {{ bankDetails.acctype }} </p>
+                    <p>Mobile Number : {{ bankDetails.mobnum }} </p> {% endcomment %}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="closeModal" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pagination mt-3 mb-3 justify-content-center">
+              <span class="step-links">
+                  {% if page_obj.has_previous %}
+                      <a href="?page={{ page_obj.previous_page_number }}"><button style="background-color:black;"><i class="bi bi-caret-left-fill" style="color: white;"></i></button></a>
+                  {% endif %}
+          
+                  <span class="current">
+                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                  </span>
+          
+                  {% if page_obj.has_next %}
+                      <a href="?page={{ page_obj.next_page_number }}"><button style="background-color:black;"><i class="bi bi-caret-right-fill" style="color:white;"></i></button></a>
+                  {% endif %}
+              </span>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('.open-modal').click(function () {
+        var id = $(this).data('id');
+        $.get('/userBankDetails/' + id, function (data) {
+          
+            if (Object.keys(data).length > 0) {
+                var content = `
+                    <p>Account Holder Name: ${data.accname}</p>
+                    <p>Account Number: ${data.accnum}</p>
+                    <p>IFSC Code: ${data.ifsc}</p>
+                    <p>Account Type: ${data.acctype}</p>
+                    <p>Mobile Number: ${data.mobnum}</p>
+                    
+                    
+                `;
+                $('#modal-content').html(content);
+                $('#myModal').modal('show');
+            } else {
+                $('#modal-content').html('<p>No Bank details available.</p>');
+                $('#myModal').modal('show');
+            }
+        });
+    });
+    $('#searchInput').on('keyup', function () {
+      let value = $(this).val().toLowerCase();
+      $('tbody tr').each(function () {
+        let row = $(this);
+        let usernameCell = row.find('.username');
+        let usernameText = usernameCell.text().toLowerCase();
+
+        let isRowVisible = usernameText.indexOf(value) > -1;
+        row.toggle(isRowVisible);
+      });
+    });
+
+
+
+
+    $('#closeModal').click(function () {
+      $('#myModal').modal('hide');
+  });
+});
+
+
+
+</script>
+{% endblock%}

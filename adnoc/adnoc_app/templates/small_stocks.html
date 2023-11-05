@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %} 
+
+ <section class="product padding-top padding-bottom">
+    <div class="container">
+      <div class="section-header d-md-flex align-items-center justify-content-between">
+        <div class="section-header__content">
+          <h2 class="mb-15"><span>Small Stocks</span> </h2>
+          
+        </div>
+        
+    </div>
+    
+    <div class="container">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for prod in products %}
+        <div class="col">
+          <div class="card">
+            <img src="{{prod.prod_img.url}}" style="max-width:" class="card-img-top" alt="Hollywood Sign on The Hill">
+            <div class="card-body">
+              <h5 class="card-title">{{prod.prod_name}}</h5>
+              <p class="card-text">
+                <strong>Price :</strong> {{prod.prod_price}}
+                <br>
+                <strong>One Time Income :</strong> {{prod.total_inc}}
+                <br>
+                <strong>Validity Period :</strong> {{prod.validity_period}} Days
+              </p>
+              <button onclick="location.href='{% url 'purchaseprod' pid=prod.id %}'" class="btn btn-primary">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+    
+  </section>
+  {% endblock %}
+
+{% block js %}
+
+{% endblock  %}

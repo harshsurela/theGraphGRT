@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<style>
+    .tbl-font{
+        font-size: 22px;
+    }
+    .over{
+        overflow-x:auto;
+     }
+</style>
+
+{% endblock %}
+{% block content %}  
+ <!-- ================> Page header start here <================== -->
+  <section class="page-header bg--cover" >
+  </section>
+  <!-- ================> Page header end here <================== -->
+
+
+
+
+
+  <!-- ===============>> Table<<================= -->
+
+    <div class="row mt-5">
+        <h3 class="text-center mb-4">My Transactions</h3>
+        <div class="col-2">
+        </div>
+        <div class="col-8 over">
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Amount</th>
+                        <th>C\D</th>
+                        <th>Intent</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in trans %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{t.amount}} ₹ </td>
+                            <td>{% if t.credited %}Credit{% else %}Debit{% endif %}</td>
+                            <td>{{t.tag}}</td>
+                            <td>{{t.trans_date}}</td>                            
+                        </tr>
+                    {% endfor %}
+                    
+                </tbody>
+              </table>
+              
+        </div>
+    </div>
+  
+  <!-- ===============>> Contact section start here <<================= -->
+
+  {% endblock %}
+

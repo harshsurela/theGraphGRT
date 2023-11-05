@@ -1,0 +1,80 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+      <div class="card" >
+        <div class="card-body " style="border-radius: 5px;">
+          <h4 class="card-title">Transaction History</h4>
+          <div class="d-flex flex-row gap-2">
+              <input type="text" class="rounded py-3 px-4 border-0" style="width: 100%; background-color: lavender;" placeholder="Search transaction" id="searchInput">
+              <button class="btn btn-dark rounded">Submit</button>
+          </div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Tag</th>
+                  <th>Credited</th>
+                  <th>Amount</th>
+                  <th>Transaction Date</th>
+                  <th>Username</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for tr in page_obj %}
+                <tr>
+                  <td class="tag">{{ tr.tag }}</td>
+                  <td>{{ tr.credited }}</td>
+                  <td>{{ tr.amount }}</td>
+                  <td>{{ tr.trans_date }}</td>
+                  <td>{{ tr.user_id.username }}</td>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="pagination mt-3 mb-3 justify-content-center">
+              <span class="step-links">
+                  {% if page_obj.has_previous %}
+                      <a href="?page={{ page_obj.previous_page_number }}"><button style="background-color:black;"><i class="bi bi-caret-left-fill" style="color: white;"></i></button></a>
+                  {% endif %}
+          
+                  <span class="current">
+                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                  </span>
+          
+                  {% if page_obj.has_next %}
+                      <a href="?page={{ page_obj.next_page_number }}"><button style="background-color:black;"><i class="bi bi-caret-right-fill" style="color:white;"></i></button></a>
+                  {% endif %}
+              </span>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+</div>
+
+{% endblock %}
+{% block js %}
+
+<script>
+
+  $(document).ready(function () {
+    $('#searchInput').on('keyup', function () {
+      let value = $(this).val().toLowerCase();
+      $('tbody tr').each(function () {
+        let row = $(this);
+        let tagCell = row.find('.tag');
+        let tagText = tagCell.text().toLowerCase();
+
+        let isRowVisible = tagText.indexOf(value) > -1;
+        row.toggle(isRowVisible);
+      });
+    });
+  });
+</script>
+
+{% endblock %}

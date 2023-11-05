@@ -1,0 +1,65 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+      <div class="card" >
+        <div class="card-body " style="border-radius: 5px;">
+          <h4 class="card-title">Purchase Requests</h4>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Product Name</th>
+                  <th>Price</th>
+                  <th>Daily Income</th>
+                  <th>Validity</th>
+                  <th>Transaction Id</th>
+                  <th>Purchase Date</th>
+                  <th>Username</th>
+                  <th>Approved</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for prod in page_obj %}
+                
+                <tr>
+                  <td>{{ prod.prod_id.prod_name }}</td>
+                  <td>{{ prod.prod_id.prod_price }}</td>
+                  <td>{{ prod.prod_id.daily_inc }}</td>
+                  <td>{{ prod.prod_id.validity_period }}</td>
+                  <td>{{ prod.transaction_id }}</td>
+                  <td>{{ prod.purchase_date }}</td>
+                  <td>{{ prod.user_id.username }}</td>
+                  <td><a href="{% url 'prodApproved' pid=prod.id %}" onclick="return confirm('Are you sure you want to validate this request?');"><i class="bi bi-check-circle" style="font-size: 20px; color: green"></i></a></td>
+                </tr>
+
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="pagination mt-3 mb-3 justify-content-center">
+              <span class="step-links">
+                  {% if page_obj.has_previous %}
+                      <a href="?page={{ page_obj.previous_page_number }}"><button style="background-color:black;"><i class="bi bi-caret-left-fill" style="color: white;"></i></button></a>
+                  {% endif %}
+          
+                  <span class="current">
+                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                  </span>
+          
+                  {% if page_obj.has_next %}
+                      <a href="?page={{ page_obj.next_page_number }}"><button style="background-color:black;"><i class="bi bi-caret-right-fill" style="color:white;"></i></button></a>
+                  {% endif %}
+              </span>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+</div>
+
+{% endblock %}

@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+  .back-col{
+    background-color:#adb5bd;
+  }
+  .heiwid{
+    width: 254px !important;
+    height: 169px !important;
+}
+  .font-red{
+    color: red;
+  }
+  .service__content{
+    font-weight: bolder;
+  }
+</style>
+{% endblock %}
+
+{% block content %} 
+
+ <section class="product padding-top padding-bottom product_bg">
+    <div class="container">
+      <div class="section-header d-md-flex align-items-center justify-content-between">
+        <div class="section-header__content">
+          <h2 class="mb-15 mt-30"><span>Products</span> </h2>
+          
+        </div>
+        
+    </div>
+    
+    <!-- <div class="container">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for prod in products %}
+        <div class="col">
+          <div class="card">
+            <img src="{{prod.prod_img.url}}" style="max-width:" class="card-img-top" alt="Hollywood Sign on The Hill">
+            <div class="card-body">
+              <h5 class="card-title">{{prod.prod_name}}</h5>
+              <p class="card-text">
+                <strong>Price :</strong> {{prod.prod_price}}
+                <br>
+                <strong>Daily Income :</strong> {{prod.daily_inc}}
+                <br>
+                <strong>Total Income :</strong> {{prod.total_inc}}
+                <br>
+                <strong>Validity Period :</strong> {{prod.validity_period}} Days
+              </p>
+              <button onclick="location.href='{% url 'purchaseprod' pid=prod.id %}'" class="btn btn-primary">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div> -->
+    <!-- <div class="product_grid">
+      <ul class="product_list list">
+        <li class="product_item">
+          <div class="product_image">
+            <a href="#"><img src="https://bit.ly/1onMfJL" alt=""></a>
+              <div class="product_buttons">
+                <button class="product_heart"><i class="fa fa-heart"></i></button>
+                <button class="product_compare"><i class="fa fa-random"></i></button>
+                <button class="add_to_cart"><i class="fa fa-shopping-cart"></i></button>
+                <div class="quick_view">
+                  <a href="#"><h6>Quick View</h6></a>
+                </div>
+              </div>
+          </div>
+          <div class="product_values">
+            <div class="product_title">
+              <h5>Pro WhatsMiner M53 60t</h5>
+            </div>
+            <div class="product_price">
+              <a href="#"><span>Price : </span> <span class="price_new">21000<small>Rs</small></span></a>
+            </div>
+            <div class="product_price">
+              <a href="#"><span>Daily income : </span> <span class="price_new">21000<small>Rs</small></span></a>
+            </div>
+            <div class="product_price">
+              <a href="#"><span>Period of validity : </span> <span class="price_new">55 days</span></a>
+            </div>
+            <div class="product_price">
+              <a href="#"><span>Total income : </span> <span class="price_new">10975<small>Rs</small></span></a>
+            </div>
+            <div class="product_buttons">
+              <button class="product_heart">Buy Now</button>
+            </div>
+          </div>
+        </li>
+        <li class="product_item">
+          <div class="product_image">
+            <a href="#"><img src="https://bit.ly/1onMfJL" alt=""></a>
+              <div class="product_buttons">
+                <button class="product_heart"><i class="fa fa-heart"></i></button>
+                <button class="product_compare"><i class="fa fa-random"></i></button>
+                <button class="add_to_cart"><i class="fa fa-shopping-cart"></i></button>
+                <div class="quick_view">
+                  <a href="#"><h6>Quick View</h6></a>
+                </div>
+              </div>
+          </div>
+          <div class="product_values">
+            <div class="product_title">
+              <h5>Pro WhatsMiner M53 60t</h5>
+            </div>
+            <div class="product_price">
+              <a href="#"><span>Price : </span> <span class="price_new">21000<small>Rs</small></span></a>
+            </div>
+            <div class="product_price">
+              <a href="#"><span>Daily income : </span> <span class="price_new">21000<small>Rs</small></span></a>
+            </div>
+            <div class="product_price">
+              <a href="#"><span>Period of validity : </span> <span class="price_new">55 days</span></a>
+            </div>
+            <div class="product_price">
+              <a href="#"><span>Total income : </span> <span class="price_new">10975<small>Rs</small></span></a>
+            </div>
+            <div class="product_buttons">
+              <button class="product_heart">Buy Now</button>
+            </div>
+          </div>
+        </li>
+        <li class="product_item">
+          <div class="product_image">
+            <a href="#"><img src="https://bit.ly/1onMfJL" alt=""></a>
+              <div class="product_buttons">
+                <button class="product_heart"><i class="fa fa-heart"></i></button>
+                <button class="product_compare"><i class="fa fa-random"></i></button>
+                <button class="add_to_cart"><i class="fa fa-shopping-cart"></i></button>
+                <div class="quick_view">
+                  <a href="#"><h6>Quick View</h6></a>
+                </div>
+              </div>
+          </div>
+          <div class="product_values">
+            <div class="product_title">
+              <h5>Pro WhatsMiner M53 60t</h5>
+            </div>
+            <div class="product_price">
+              <a href="#"><span>Price : </span> <span class="price_new">21000<small>Rs</small></span></a>
+            </div>
+            <div class="product_price">
+              <a href="#"><span>Daily income : </span> <span class="price_new">21000<small>Rs</small></span></a>
+            </div>
+            <div class="product_price">
+              <a href="#"><span>Period of validity : </span> <span class="price_new">55 days</span></a>
+            </div>
+            <div class="product_price">
+              <a href="#"><span>Total income : </span> <span class="price_new">10975<small>Rs</small></span></a>
+            </div>
+            <div class="product_buttons">
+              <button class="product_heart">Buy Now</button>
+            </div>
+          </div>
+        </li>
+        <li class="product_item">
+          <div class="product_image">
+            <a href="#"><img src="https://bit.ly/1onMfJL" alt=""></a>
+              <div class="product_buttons">
+                <button class="product_heart"><i class="fa fa-heart"></i></button>
+                <button class="product_compare"><i class="fa fa-random"></i></button>
+                <button class="add_to_cart"><i class="fa fa-shopping-cart"></i></button>
+                <div class="quick_view">
+                  <a href="#"><h6>Quick View</h6></a>
+                </div>
+              </div>
+          </div>
+          <div class="product_values">
+            <div class="product_title">
+              <h5>Pro WhatsMiner M53 60t</h5>
+            </div>
+            <div class="product_price">
+              <a href="#"><span>Price : </span> <span class="price_new">21000<small>Rs</small></span></a>
+            </div>
+            <div class="product_price">
+              <a href="#"><span>Daily income : </span> <span class="price_new">21000<small>Rs</small></span></a>
+            </div>
+            <div class="product_price">
+              <a href="#"><span>Period of validity : </span> <span class="price_new">55 days</span></a>
+            </div>
+            <div class="product_price">
+              <a href="#"><span>Total income : </span> <span class="price_new">10975<small>Rs</small></span></a>
+            </div>
+            <div class="product_buttons">
+              <button class="product_heart">Buy Now</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div> -->
+      <div class="container">
+        <div class="service__wrapper">
+          <div class="row g-4 align-items-center">
+          {% for p in products %}
+            <div class="col-sm-6 col-md-6 col-lg-4">
+              <div class="service__item " data-aos="fade-up" data-aos-duration="800">
+                <div class="service__item-inner back-col">
+                  <div class="service__thumb mb-30 ">
+                    <div class="text-center">
+                      <img class="dark heiwid" src="{{p.prod_img.url}}" alt="service-icon">
+                    </div>
+                  </div>
+                  <div class="service__content">
+                    <h5 class="mb-15 text-center"> <a class="stretched-link" href="{% url 'purchaseprod' pid=p.id %}">{{p.prod_name}}</a> </h5>
+                  </div>
+                  <div class="service__content">
+                    <span>Price : {{p.prod_price}}<small>Rs</small></span>
+                  </div>
+                  <div class="service__content">
+                    <span>Daily income : {{p.daily_inc}}<small>Rs</small></span>
+                  </div>
+                  <div class="service__content">
+                    <span>Period of validity : {{p.validity_period}} days</span>
+                  </div>
+                  <div class="service__content">
+                    <span>Total income : {{p.total_inc}}<small>Rs</small></span>
+                  </div>
+                  <div class="service__content">
+                    <button class="trk-btn trk-btn--border trk-btn--primary mt-4 " style="width: 100%;">Buy Now </button>
+                  </div>
+                  {% comment %} <div class="service__content font-red mt-3">
+                    <span>Time remaining: 07h 54m 52s</span>
+                  </div> {% endcomment %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+    
+  </section>
+  {% endblock %}

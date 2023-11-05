@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<style>
+    .tbl-font{
+        font-size: 22px;
+    }
+    .over{
+        overflow-x:auto;
+     }
+</style>
+
+{% endblock %}
+{% block content %}  
+ <!-- ================> Page header start here <================== -->
+  <section class="page-header bg--cover" >
+  </section>
+  <!-- ================> Page header end here <================== -->
+
+
+
+
+
+  <!-- ===============>> Table<<================= -->
+
+    <div class="row">
+        <h3 class="text-center mb-4">Withdraw History</h3>
+        <div class="col-2">
+        </div>
+        <div class="col-8 over">
+            <table class="table table-hover tbl-font" >
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">#</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Status</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for i in history %}
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{i.request_date}}</td>
+                    <td>{{i.amount}}</td>
+                    {% if i.status|lower == "pending" %}
+                    <td class="text-warning">{{i.status}}</td>
+                    {% elif i.status|lower == "success" %}
+                    <td class="text-success">{{i.status}}</td>
+                    {% else %}
+                    <td class="text-danger">{{i.status}}</td>
+                    {% endif %}
+                    
+                  </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+        </div>
+    </div>
+  
+  <!-- ===============>> Contact section start here <<================= -->
+
+  {% endblock %}
+

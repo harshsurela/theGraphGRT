@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+      <div class="contact padding-top padding-bottom">
+        <div class="container mt-5">
+          <div class="contact__wrapper">
+            <div class="row g-5">
+              
+              <div class="col">
+                <div class="contact__form">
+                  <form action="{% url 'recharge' %}" method="POST" data-aos="fade-left" data-aos-duration="1000" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row g-4">
+                      <div class="col-12">
+                        <div>
+                          <label for="name" class="form-label">Pay at this UPI ID</label>
+                          <div class="form-control">pocketfm45@paytm </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div>
+                          <label for="tamt" class="form-label">Amount</label>
+                          <input class="form-control" type="text" id="tamt" name="tamt" required placeholder="Enter amount">
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div>
+                          <label for="tid" class="form-label">Transaction ID</label>
+                          <input class="form-control" type="text" id="tid" name="tid" required placeholder="Transaction ID">
+                        </div>
+                      </div>
+                      <!--<div class="col-12">-->
+                      <!--  <label for="timg" class="form-label">Transaction Image</label>-->
+                      <!--  <input type="file" class="form-control" name="timg" required id="timg">-->
+                      <!--</div>-->
+                      <div class="col-12">
+                        <button type="submit" class="trk-btn trk-btn--border trk-btn--primary mt-4">Recharge</button>
+                      </div>
+                    </div>
+                    
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>  
+  {% endblock %}

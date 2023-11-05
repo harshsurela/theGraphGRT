@@ -1,0 +1,51 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+
+</style>
+{% endblock css %}
+
+{% block content %}
+
+
+    <div class="card shadow-lg">
+      <div class="card-body">
+        <h4 class="card-title">Edit User Details</h4>
+        
+        <form class="forms-sample" method="POST" >
+            {% csrf_token %}
+          <div class="form-group">
+            <label for="exampleInputUsername1">Username</label>
+            <input type="text" class="form-control" id="exampleInputUsername1" value="{{user.username}}" name="username" >
+          </div>
+          <div class="form-group">
+            <label for="mob">Mobile Number</label>
+            <input type="tel" maxlength="10" class="form-control form-control-lg" id="mob" name="mobnum" value="{{user.mobile_number}}" pattern="[0-9]+" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+          </div>
+          <div class="form-group">
+            <label for="RechargeAmt">Recharge Amount</label>
+            <input class="form-control" type="number" id="RechargeAmt" name="recamt"  value="{{user.recharge_amount}}"  >
+          </div>
+          <div class="form-group">
+            <label for="WithdrawAmt">Withdraw Amount</label>
+            <input class="form-control" type="number" id="WithdrawAmt" name="withamt"  value="{{user.withdrawable_amount}}" >
+          </div>
+          <div class="form-group">
+            <label for="refCode">Referal Code</label>
+            <input type="text" class="form-control" id="refCode" value="{{user.referal_code}}" readonly>
+          </div>    
+          <button type="submit" class="btn btn-outline-dark btn-fw">Submit</button>
+          
+        </form>
+      </div>
+    </div>
+  
+
+{% endblock %}

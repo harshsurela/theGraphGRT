@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+  body {
+background: whitesmoke;
+font-family: 'Open Sans', sans-serif;
+}
+.container {
+max-width: 960px;
+margin: 30px auto;
+padding: 20px;
+}
+h1 {
+font-size: 20px;
+text-align: center;
+margin: 20px 0 20px;
+}
+h1 small {
+display: block;
+font-size: 15px;
+padding-top: 8px;
+color: gray;
+}
+.avatar-upload {
+position: relative;
+max-width: 205px;
+margin: 50px auto;
+}
+.avatar-upload .avatar-edit {
+position: absolute;
+right: 12px;
+z-index: 1;
+top: 10px;
+}
+.avatar-upload .avatar-edit input {
+display: none;
+}
+.avatar-upload .avatar-edit input + label {
+display: inline-block;
+width: 34px;
+height: 34px;
+margin-bottom: 0;
+border-radius: 100%;
+background: #FFFFFF;
+border: 1px solid transparent;
+box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+cursor: pointer;
+font-weight: normal;
+transition: all 0.2s ease-in-out;
+}
+.avatar-upload .avatar-edit input + label:hover {
+background: #f1f1f1;
+border-color: #d6d6d6;
+}
+.avatar-upload .avatar-edit input + label:after {
+content: "\f040";
+font-family: 'FontAwesome';
+color: #757575;
+position: absolute;
+top: 10px;
+left: 0;
+right: 0;
+text-align: center;
+margin: auto;
+}
+.avatar-upload .avatar-preview {
+width: 192px;
+height: 192px;
+position: relative;
+border-radius: 100%;
+border: 6px solid #F8F8F8;
+box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+.avatar-upload .avatar-preview > div {
+width: 100%;
+height: 100%;
+border-radius: 100%;
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="page-header bg--cover" >
+  
+</section>
+<div class="team team--details padding-top padding-bottom bg-color-3">
+  <div class="container">
+    <div class="team__wrapper">
+      <div class="row g-5 align-items-center">
+        {% comment %} <div class="col-md-5">
+          <div class="container">
+            <h1>{{request.user.name}}
+            </h1>
+            <div class="avatar-upload">
+                <div class="avatar-edit">
+                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                    <label for="imageUpload"></label>
+                </div>
+                <div class="avatar-preview">
+                    <div id="imagePreview" style="background-image: url('https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg');">
+                    </div>
+                </div>
+            </div>
+        </div> {% endcomment %}
+        </div>
+        <div class="col-md">
+          
+        <div class="contact__form">
+            {% if messages %}
+                  <ul class="messages">
+                    {% for message in messages %}
+                      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+          <form action="{% url 'withdrawreq' %}" method="POST" data-aos="fade-left" data-aos-duration="1000">
+            {% csrf_token %}
+            <div class="row g-4">
+              <div class="text-center">
+                <strong>Available Withdrawable Balance: </strong>{{amount}} Rs.
+              </div>    
+              <div class="text-center">
+                <strong>Minimum Withdrawable Limit: </strong>200 Rs.
+              </div>    
+              <div class="col-12">
+                <div>
+                  <label for="name" class="form-label">Withdraw Amount</label>
+                  <input class="form-control" type="number" id="withdraw" name="withamt" min="200" max="{{amount}}"   placeholder="Enter Withdraw amount" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div>
+                  <label for="name" class="form-label">Account Type</label>
+                  <select name="acctype" class="form-control"  id="paymentopt" required>
+                    <option value="" disabled selected hidden>Select Account Type</option>
+                    <option value="saving" {% if bankobj.acctype == "saving" %}selected{% endif %}>Savings</option>
+                    <option value="current" {% if bankobj.acctype == "current" %}selected{% endif %}>Currents</option>
+                  </select>
+                </div>
+              </div>  
+              <div class="col-12">
+                <div>
+                  <label for="name" class="form-label">Account Holder Name</label>
+                  <input class="form-control" type="text" id="accname" name="accname" value="{{bankobj.accname}}" placeholder="Enter account holder name" required>
+                </div>
+              </div>  
+              <div class="col-12">
+                <div>
+                  <label for="name" class="form-label">Account Number</label>
+                  <input class="form-control" type="text" id="accnum" value="{{bankobj.accnum}}" name="accnum" pattern="[0-9]+" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter account number" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div>
+                  <label for="name" class="form-label">IFSC</label>
+                  <input class="form-control" type="text" id="ifsc" value="{{bankobj.ifsc}}" name="ifsc" placeholder="Enter IFSC" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div>
+                  <label for="name" class="form-label">Mobile Number</label>
+                  <input class="form-control" pattern="[0-9]+" value="{{bankobj.mobnum}}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" type="text" id="mobnum" name="mobnum" placeholder="Enter mobile number" required>
+                </div>
+              </div>
+              
+            </div>
+            {% comment %} <button class="trk-btn trk-btn--border trk-btn--primary mt-4 col-5" style="margin-left: 3%;">Recharge</button> {% endcomment %}
+            <button type="submit" class="trk-btn trk-btn--border trk-btn--primary mt-4">Withdraw</button>
+             
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- ===============>> team details section end here <<================= -->
+
+
+
+  
+  {% endblock %}
+
+ 

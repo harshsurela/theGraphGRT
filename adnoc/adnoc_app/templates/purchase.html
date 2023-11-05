@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<style>
+  .upiOptions{
+    display:none !important;
+  }
+</style>
+{% endblock %}
+{% block content %}
+      <div class="contact padding-top padding-bottom">
+        <div class="container mt-5">
+          <div class="contact__wrapper">
+            <div class="row g-5">
+              <div class="col-sm-6 col-md-6 col-lg-4">
+                <div class="service__item " data-aos="fade-up" data-aos-duration="800">
+                  <div class="service__item-inner text-center back-col">
+                    <div class="service__thumb mb-30">
+                      <div class="">
+                        <img class="dark heiwid" src="{{prod.prod_img.url}}" alt="service-icon">
+                      </div>
+                    </div>
+                    <div class="service__content">
+                      <h5 class="mb-15"> <a class="stretched-link" href="{% url 'purchaseprod' pid=prod.id %}">{{prod.prod_name}}</a> </h5>
+                    </div>
+                    <div class="service__content">
+                      <span>Price : {{prod.prod_price}}<small>Rs</small></span>
+                    </div>
+                    <div class="service__content">
+                      <span>Daily income : {{prod.daily_inc}}<small>Rs</small></span>
+                    </div>
+                    <div class="service__content">
+                      <span>Period of validity : {{prod.validity_period}} days</span>
+                    </div>
+                    <div class="service__content">
+                      <span>Total income : {{prod.total_inc}}<small>Rs</small></span>
+                    </div>
+                    {% comment %} <div class="service__content">
+                      <button class="trk-btn trk-btn--border trk-btn--primary mt-4">Buy Now </button>
+                    </div> {% endcomment %}
+                    {% comment %} <div class="service__content font-red mt-3">
+                      <span>Time remaining: 07h 54m 52s</span>
+                    </div> {% endcomment %}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-7">
+                  {% for message in messages %}
+                    <div class="container-fluid p-0">
+                    <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                        
+                        {{ message }}
+                    </div>
+                    </div>
+                {% endfor %}
+                <div class="contact__form">
+                  <form action="{% url 'purchaseprod' pid=prod.id %}" method="POST" data-aos="fade-left" data-aos-duration="1000" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row g-4">
+                      <div class="col-12">
+                        <select name="payOption" class="form-control"  id="paymentopt" required>
+                          <option value="" disabled selected hidden>Select Payment Options</option>
+                          <option value="rechargeWallet">Recharge Wallet {{request.user.recharge_amount}}</option>
+                          <option value="interestWallet">Interest Wallet {{request.user.withdrawable_amount}}</option>
+                          <option value="upi">UPI</option>
+                        </select>
+                      </div>
+                      <div id="upiOptions" class="row upiOptions">
+                          <div class="col-12">
+                            <div>
+                              <label for="name" class="form-label">Pay at this UPI ID</label>
+                              <div class="form-control">pocketfm45@paytm </div>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div>
+                              <label for="email" class="form-label">Transaction ID</label>
+                              <input class="form-control" type="text" id="text" name="tid"  placeholder="Transaction ID">
+                            </div>
+                          </div>
+                          <!--<div class="col-12">-->
+                          <!--  <label for="email" class="form-label">Transaction Image</label>-->
+                          <!--  <input type="file" class="form-control" name="timg"  id="timg">-->
+                          <!--</div>-->
+                      </div>
+                      <div class="col-12">
+                        <button type="Submit" class="btn btn-primary">Purchase</Button>
+                      </div>
+                    </div>
+                    
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>  
+  {% endblock %}
+  {% block js %}
+  <script>
+    var x =document.getElementById("paymentopt")
+    x.addEventListener("change", function(e) {
+      
+      
+      var y = document.getElementById("upiOptions");
+      if(e.target.value == "upi")
+        {
+            y.classList.remove("upiOptions")
+        }
+      else{
+        y.classList.add("upiOptions")
+      }
+    });
+  </script>
+  {% endblock %}

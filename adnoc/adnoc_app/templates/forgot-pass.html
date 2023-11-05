@@ -1,0 +1,212 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+
+<!-- Mirrored from thetork.com/demos/html/bitrader/forgot-pass-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Jul 2023 16:46:03 GMT -->
+<head>
+    <title>The Graph (GRT) - Forgot Password </title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  
+  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %} ">
+  <link rel="stylesheet" href="{% static 'css/aos.css' %} ">
+  <link rel="stylesheet" href="{% static 'css/all.min.css' %} ">
+  <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %} ">
+  <link rel="stylesheet" href="{% static 'css/style.css' %} ">
+  </head>
+
+<body>
+
+  <!-- ===============>> Preloader start here <<================= -->
+  <div class="preloader">
+    <img src="{% static 'images/logo/preloader.png' %} " alt="preloader icon">
+  </div>
+  <!-- ===============>> Preloader end here <<================= -->
+
+
+
+  <!-- ===============>> light&dark switch start here <<================= -->
+  <div class="lightdark-switch">
+    <span class="dark-btn" id="btnSwitch"><img src="{% static 'images/moon.svg' %}" alt="light-dark-switchbtn"
+        class="swtich-icon"></span>
+  </div><!-- ===============>> light&dark switch start here <<================= -->
+
+
+
+  <!-- ===============>> Header section start here <<================= -->
+  <header class="header-section bg-color-3 d-none">
+    <div class="header-bottom">
+      <div class="container">
+        <div class="header-wrapper">
+          <div class="logo">
+            <a href="index.html">
+                <img src="{% static 'images/1.png' %}" alt="account-image" class="dark">
+            </a>
+          </div>
+          <div class="menu-area">
+            <ul class="menu menu--style1">
+              <li>
+                <a href="#0">Demos </a>
+                <ul class="submenu">
+                  <li><a href="index.html">Home Stock</a></li>
+                  <li><a href="index1-light.html">Home Stock V1<span class="style1">Light</span></a></li>
+                  <li><a href="index1-dark.html">Home Stock V2<span class="style2">Dark</span> </a></li>
+                  <li><a href="index-3.html">Home Crypto</a></li>
+                  <li><a href="index-2-light.html">Home Crypto V1<span class="style1">Light</span></a></li>
+                  <li><a href="index-2-dark.html">Home Crypto V2<span class="style2">Dark</span> </a></li>
+                  <li><a href="index-4.html">Home Forex</a></li>
+                  <li><a href="index-3-light.html">Home Forex V1<span class="style1">Light</span></a></li>
+                  <li><a href="index-3-dark.html">Home Forex V2<span class="style2">Dark</span> </a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#0">Services</a>
+                <ul class="submenu">
+                  <li><a href="services.html">Services</a></li>
+                  <li><a href="service-details.html">Services Details</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#0">About</a>
+                <ul class="submenu">
+                  <li><a href="about.html">About Us</a></li>
+                  <li><a href="price.html">Price</a></li>
+                  <li><a href="team.html">Team</a></li>
+                  <li><a href="team-2.html">Team 2</a></li>
+                  <li><a href="team-details.html">Team Details</a></li>
+                </ul>
+              </li>
+
+              <li>
+                <a href="#0">Pages</a>
+                <ul class="submenu">
+                  <li><a href="blogs.html">Blogs</a></li>
+                  <li><a href="blog-sidebar.html">Blog - Side Bar</a></li>
+                  <li><a href="blog-details.html">Blog Details</a></li>
+
+                  <li><a href="signup.html">Sign Up</a></li>
+                  <li><a href="signup-2.html">Sign Up 2</a></li>
+                  <li><a href="signin.html">Sign In</a></li>
+                  <li><a href="signin-2.html">Sign In 2</a></li>
+                  <li><a href="forgot-pass.html">Reset Password</a></li>
+                  <li><a href="forgot-pass-2.html">Reset Password 2</a></li>
+                  <li><a href="404.html">404 Error</a></li>
+                </ul>
+
+              </li>
+              <li>
+                <a href="contact.html">Contact Us</a>
+              </li>
+            </ul>
+
+          </div>
+          <div class="header-action">
+            <div class="menu-area">
+              <div class="header-btn">
+                <a href="signup.html" class="trk-btn trk-btn--border trk-btn--primary">
+                  <span>Join Now</span>
+                </a>
+              </div>
+
+              <!-- toggle icons -->
+              <div class="header-bar d-lg-none home1">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- ===============>> Header section end here <<================= -->
+
+
+
+
+
+  <!-- ===============>> account start here <<================= -->
+  <section class="account padding-top padding-bottom sec-bg-color2">
+    <div class="container">
+      <div class="account__wrapper" data-aos="fade-up" data-aos-duration="800">
+        <div class="account__inner">
+          <div class="row align-items-center">
+            <div class="col-lg-6">
+              <div class="account__thumb">
+                <img src="{% static 'images/1.png' %}" alt="account-image" class="dark">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="account__content account__content--style2">
+
+                <!-- account tittle -->
+                <div class="account__header">
+                  <h2>Reset password</h2>
+                  <p class="mb-0">Hey there! Forgot your password? No worries! </p>
+                </div>
+
+                {% for message in messages %}
+                    <div class="container-fluid p-0">
+                    <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                        
+                        {{ message }}
+                    </div>
+                    </div>
+                {% endfor %}
+
+                <!-- account form -->
+                <form action="{% url 'forgotpass' %}" method="POST" class="account__form needs-validation" novalidate>
+                    {% csrf_token %}
+                  <div class="row g-4">
+                    <div class="col-12">
+                      <div>
+                        <label for="mob" class="form-label">Mobile Number</label>
+                        <input type="text" maxlength="10" class="form-control" id="mob" pattern="[0-9]+" oninput="this.value = this.value.replace(/[^0-9]/g, '')" name="mob" placeholder="Enter your mobile number"
+                          required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="trk-btn trk-btn--border trk-btn--primary d-block mt-4">Get
+                    OTP</button>
+                </form>
+
+
+                <div class="account__switch">
+                  <p><a href="{% url 'signin' %}" class="style2"><i class="fa-solid fa-arrow-left-long"></i> <span>Back to Login</span></a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===============>> account end here <<================= -->
+
+
+
+
+
+  <!-- vendor plugins -->
+
+  <script src=" {% static 'js/bootstrap.bundle.min.js' %} "></script>
+  <script src=" {% static 'js/all.min.js' %} "></script>
+  <script src=" {% static 'js/swiper-bundle.min.js' %} "></script>
+  <script src=" {% static 'js/aos.js' %} "></script>
+  <script src=" {% static 'js/fslightbox.js' %} "></script>
+  <script src=" {% static 'js/purecounter_vanilla.js' %} "></script>
+  <script src=" {% static 'js/custom.js' %} "></script>
+
+</body>
+
+
+<!-- Mirrored from thetork.com/demos/html/bitrader/forgot-pass-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Jul 2023 16:46:03 GMT -->
+</html>

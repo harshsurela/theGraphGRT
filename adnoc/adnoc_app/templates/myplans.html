@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<style>
+    .tbl-font{
+        font-size: 22px;
+    }
+    .over{
+        overflow-x:auto;
+     }
+</style>
+
+{% endblock %}
+{% block content %}  
+ <!-- ================> Page header start here <================== -->
+  <section class="page-header bg--cover" >
+  </section>
+  <!-- ================> Page header end here <================== -->
+
+
+
+
+
+  <!-- ===============>> Table<<================= -->
+
+    <div class="row mt-5">
+        <h3 class="text-center mb-4">My Plans</h3>
+        <div class="col-2">
+        </div>
+        <div class="col-8 over">
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Plan</th>
+                        <th>Returns</th>
+                        <th>Received</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in plans %}
+                        <tr>
+                            <td>{{p.prod_id.prod_name}}</td>
+                            <td>{{p.prod_id.daily_inc}}₹  every day<br>{{p.prod_id.validity_period}} days</td>
+                            <td>0 * {{p.prod_id.daily_inc}}₹  = 0₹ </td>
+                            
+                        </tr>
+                    {% endfor %}
+                    
+                </tbody>
+              </table>
+              
+        </div>
+    </div>
+  
+  <!-- ===============>> Contact section start here <<================= -->
+
+  {% endblock %}
+

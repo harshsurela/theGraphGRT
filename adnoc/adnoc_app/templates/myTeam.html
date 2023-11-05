@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    .team-button {
+        margin: 10% 10% 10% 10% !important;
+    }
+
+    .navbar-a {
+        white-space: nowrap; /* Prevent item wrapping */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS devices */
+        scrollbar-width: none; /* Hide scrollbar on Firefox */
+        -ms-overflow-style: none; /* Hide scrollbar on Internet Explorer and Edge */
+    }
+    .navbar-a::-webkit-scrollbar {
+        display: none; /* Hide scrollbar on Chrome and Safari */
+    }
+    .navbar-a li {
+        display: inline-block; /* Make the list items display in a row */
+        margin-right: 15px; /* Add some space between items */
+    }
+</style>
+{% endblock %}
+
+{% block content %} 
+<section class="page-header bg--cover">
+</section>
+
+
+
+<div class="row mt-5">
+    <h3 class="text-center mb-4">My Teams</h3>
+    <div class="col-2">
+    </div>
+    <div class="col-8 over">
+        <!-- Navbar -->
+        <ul class="navbar-a navbar-dark ">
+            {% for team in teams %}
+            {% comment %} <li class="nav-link" onclick="filterTable('team({{team}})');">team({{team}})</li> {% endcomment %}
+            <button type="button" class="trk-btn trk-btn--border trk-btn--primary" onclick="filterTable('team({{team}})');">team({{team}})</button>
+            {% endfor %}
+            
+        </ul>
+
+        <!-- Table -->
+        <table class="table mt-3" id="myTable">
+            <thead>
+                <tr class="table-dark">
+                    <th>Mobile Number</th>
+                    <th>Profit</th>
+                    <!-- Add more table headers here -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for user, level in ref_list.values %}
+                    {% for team in teams %}
+                        {% if team is level %}
+                            {% if user|length > 1 %}
+                                {% for u in user %}
+                                    
+                                    <tr class="team({{team}})">
+                                        <td>{{u.mobile_number}}</td>
+                                        <td>{{u.withdrawable_amount}}</td>
+                                    </tr>    
+                                {% endfor %}
+                            {% else %}
+                                    
+                                <tr class="team({{team}})">
+                                    <td>{{user.0.mobile_number}}</td>
+                                    <td>{{user.0.withdrawable_amount}}</td>
+                                </tr>    
+                            {% endif %}
+                        {% endif %} 
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+          
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+    function filterTable(teamClass) {
+        // Get all table rows (excluding the table header row)
+        const rows = document.querySelectorAll("#myTable tbody tr");
+        
+        // Loop through each row
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            
+            // Check if the row has the specified teamClass
+            if (row.classList.contains(teamClass)) {
+                // If it matches the teamClass, show the row
+                row.style.display = "table-row";
+            } else {
+                // Otherwise, hide the row
+                row.style.display = "none";
+            }
+        }
+    }
+    
+    // Display "team(0)" rows by default
+    filterTable('team(0)');
+</script>
+    
+{% endblock %}

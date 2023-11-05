@@ -1,0 +1,67 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+      <div class="card" >
+        <div class="card-body " style="border-radius: 5px;">
+          <h4 class="card-title">Withdraw History</h4>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Withdraw Amount</th>
+                  <th>Account Number</th>
+                  <th>Account Name</th>
+                  <th>IFSC</th>
+                  <th>Request Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for wr in page_obj %}
+                <tr>
+                  <td>{{ wr.user_id.username }}</td>
+                  <td>{{ wr.amount}}</td>
+                  <td>{{ wr.acc_no }}</td>
+                  <td>{{ wr.acc_name }}</td>
+                  <td>{{ wr.ifsc }}</td>
+                  <td>{{ wr.request_date }}</td>
+                  {% if wr.status == "success" %}
+                  <td><label class="badge badge-success">Success</label></td>
+                  {% elif wr.status == "Pending" %}
+                  <td><label class="badge badge-warning">Pending</label></td>
+                  {% else %}
+                  <td><label class="badge badge-danger">Failed</label></td>
+                  {% endif %}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="pagination mt-3 mb-3 justify-content-center">
+              <span class="step-links">
+                  {% if page_obj.has_previous %}
+                      <a href="?page={{ page_obj.previous_page_number }}"><button style="background-color:black;"><i class="bi bi-caret-left-fill" style="color: white;"></i></button></a>
+                  {% endif %}
+          
+                  <span class="current">
+                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                  </span>
+          
+                  {% if page_obj.has_next %}
+                      <a href="?page={{ page_obj.next_page_number }}"><button style="background-color:black;"><i class="bi bi-caret-right-fill" style="color:white;"></i></button></a>
+                  {% endif %}
+              </span>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+</div>
+
+{% endblock %}

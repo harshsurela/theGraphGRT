@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+      <div class="card" >
+        <div class="card-body " style="border-radius: 5px;">
+          <h4 class="card-title">Recharge Requests</h4>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Recharge Amout</th>
+                  <th>Transaction ID</th>
+                  <th>Date</th>
+                  <th>is-Valid</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for ur in page_obj %}
+                <tr>
+                  <td>{{ur.user_id.username}}</td>
+                  <td>{{ur.recharge_amount}}</td>
+                  <td>{{ur.transaction_id}}</td>
+                  <td>{{ur.recharge_date}}</td>
+                  <td><a href="{% url 'rechargereqVerification' rid=ur.id %}" onclick="return confirm('Are you sure you want to validate this request?');"><i class="bi bi-check-circle" style="font-size: 20px; color: green"></i></a>
+                    <a href="{% url 'removeRechargeRequest' rid=ur.id %}" onclick="return confirm('Are you sure you want to cancel this request?');"><i class="bi bi-x-circle" style="font-size: 20px; color: red; margin-left: 15px;"></i></a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="pagination mt-3 mb-3 justify-content-center">
+              <span class="step-links">
+                  {% if page_obj.has_previous %}
+                      <a href="?page={{ page_obj.previous_page_number }}"><button style="background-color:black;"><i class="bi bi-caret-left-fill" style="color: white;"></i></button></a>
+                  {% endif %}
+          
+                  <span class="current">
+                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                  </span>
+          
+                  {% if page_obj.has_next %}
+                      <a href="?page={{ page_obj.next_page_number }}"><button style="background-color:black;"><i class="bi bi-caret-right-fill" style="color:white;"></i></button></a>
+                  {% endif %}
+              </span>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+</div>
+
+{% endblock %}
+
+
