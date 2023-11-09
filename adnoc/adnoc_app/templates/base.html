@@ -77,15 +77,15 @@
           <div class="menu-area">
             <ul class="menu menu--style1">
               <li>
-                <a href="{% url 'profile' %}">Home </a>
-                
+                <a href="{% url 'home' %}">Home </a>
+
               </li>
               <li>
                 <a href="#">Plan</a>
                 <ul class="submenu">
                   <li><a href="{% url 'viewprod' %}">Products</a></li>
                   <li><a href="{% url 'viewprod' %}">Small Stocks</a></li>
-                  
+
                 </ul>
               </li>
               <li>
@@ -93,13 +93,13 @@
               </li>
               <li>
                 <a href="{% url 'about' %}">About Us</a>
-                
+
               </li>
 
               <li>
                 <a href="{% url 'contact' %}">Contact Us</a>
               </li>
-              
+
               {% if request.user.mobile_number %}
               <li>
                 <a href="{% url 'profile' %}">My Profile</a>
@@ -118,7 +118,7 @@
                 <a href="{% url 'logout' %}" class="trk-btn trk-btn--border trk-btn--primary">
                   <span>Logout</span>
                 </a>
-                
+
                 {% else %}
                 <a href="{% url 'signup' %}" class="trk-btn trk-btn--border trk-btn--primary">
                   <span>Join Now</span>
@@ -287,7 +287,7 @@
 
   <!-- vendor plugins -->
 
-  
+
 
   <script src=" {% static 'js/bootstrap.bundle.min.js' %} "></script>
   <script src=" {% static 'js/all.min.js' %} "></script>
@@ -312,7 +312,7 @@
 
         //changeImage();
     });
-  </script>  
+  </script>
   {% block js %}
   {% endblock %}
 </body>
