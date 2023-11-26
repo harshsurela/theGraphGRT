@@ -60,6 +60,8 @@ def signup(request):
                 user.referal_code = uuid.uuid4()
                 user.refered_by = ref_user
                 user.save()
+                ref_user.withdrawable_amount=ref_user.withdrawable_amount+100
+                ref_user.save()
             except:
                 messages.error(request, 'Invalid referral code')
                 return render(request,'signup.html')
