@@ -9,19 +9,21 @@
               
               <div class="col">
                 <div class="contact__form">
+                  <label for="name" class="form-label text-secondary">Minimum Recharge - 675 RS</label>
                   <form action="{% url 'recharge' %}" method="POST" data-aos="fade-left" data-aos-duration="1000" enctype="multipart/form-data">
                     {% csrf_token %}
+
                     <div class="row g-4">
                       <div class="col-12">
                         <div>
                           <label for="name" class="form-label">Pay at this UPI ID</label>
-                          <div class="form-control">pocketfm45@paytm </div>
+                          <div class="form-control">{{upiObj.upiId}} </div>
                         </div>
                       </div>
                       <div class="col-12">
                         <div>
                           <label for="tamt" class="form-label">Amount</label>
-                          <input class="form-control" type="text" id="tamt" name="tamt" required placeholder="Enter amount">
+                          <input class="form-control" type="number" id="tamt" name="tamt" required placeholder="Enter amount" min="675">
                         </div>
                       </div>
                       <div class="col-12">

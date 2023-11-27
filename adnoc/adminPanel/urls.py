@@ -21,4 +21,5 @@ urlpatterns = [
     path("dashboard/",views.dashboard,name="dashboard"),
     path("transactionHistory/",views.transactionHistory,name="transactionHistory"),
     path("editUserDetails/<int:uid>",views.editUserDetails,name="editUserDetails"),
+    path("addUpiAccount/",views.addUpiAccount,name="addUpiAccount"),
 ] 

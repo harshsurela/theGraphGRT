@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+
+</style>
+{% endblock css %}
+
+{% block content %}
+
+
+    <div class="card shadow-lg">
+      <div class="card-body">
+        <h4 class="card-title">Manage UPI Accounts</h4>
+        {% for message in messages %}
+                    <div class="container-fluid p-0">
+                    <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                        
+                        {{ message }}
+                    </div>
+                    </div>
+                {% endfor %}
+        <form class="forms-sample" method="POST" >
+            {% csrf_token %}
+          <div class="form-group">
+            <label for="exampleInputUsername1">UPI ID</label>
+            <input type="text" class="form-control" id="exampleInputUsername1" value="{{upiObj.upiId}}" name="upi" >
+          </div>
+           
+          <button type="submit" class="btn btn-outline-dark btn-fw">Submit</button>
+          
+        </form>
+      </div>
+    </div>
+  
+
+{% endblock %}

@@ -161,13 +161,15 @@ def walletHistory(request):
     product_purchase = Purchase.objects.filter(is_approved=True)
     product_list = []
     today_date = datetime.now()
-    
+    print(product_purchase)
     for purchase in product_purchase:
         try: 
             product = Product.objects.get(id = purchase.prod_id.id)
             user = AdnocUser.objects.get(id= purchase.user_id.id)
             wallet_product = WalletHistory.objects.filter(user_purchase__id = purchase.id,transaction_date__date = today_date)
+            print("wallert",wallet_product)
             if not wallet_product.exists():
+                print("yess")
                 wall_history = WalletHistory()
                 days = today_date - purchase.purchase_date.replace(tzinfo=None)
                 total_days = days.days
@@ -184,9 +186,14 @@ def walletHistory(request):
                     wall_history.user_purchase = purchase   
                     wall_history.transaction_date = today_date
                     wall_history.save()
+                    refByUser=AdnocUser.objects.get(mobile_number=user.refered_by.mobile_number)
+                    print("refered by ",refByUser)
+                    refByUser.withdrawable_amount=refByUser.withdrawable_amount+(product.daily_inc*0.005)
+
+                    refByUser.save()
                     addTransaction(amount=product.daily_inc,userId=user,credited=True,tag="Daily income credited for "+product.prod_name)        
         except Exception as e:
-            pass
+            print(e)
 
     
     return render(request,"wallet.html",{"status":"Successfully give daily income to user"})
@@ -250,3 +257,14 @@ def editUserDetails(request, uid):
 
         return redirect('userDetails')
     return render(request, "editUserDetails.html",{'user':user})
+
+
+def addUpiAccount(request):
+    upiObj=UPIAccount.objects.get()
+    if request.method == "POST":
+        upi=request.POST.get("upi")
+        upiObj.upiId=upi
+        upiObj.save()
+        messages.success(request, 'UPI ID Updated')
+        return redirect("addUpiAccount")
+    return render(request,"manageUpi.html",{"upiObj":upiObj})

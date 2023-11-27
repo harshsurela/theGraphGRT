@@ -26,6 +26,15 @@ def signin(request):
             user = authenticate(mobile_number= mob, password = passw)
             if user != None:
                 login(request,user)
+                # Check if the popup has been shown
+                if not request.session.get('popup_shown', False):
+                    # Set the session variable to indicate that the popup has been shown
+                    request.session['popup_shown'] = True
+
+                    # Redirect to the profile page and show the popup
+                    return redirect('profile')
+                
+                # Redirect to the profile page without showing the popup
                 return redirect('profile')
             else:
                 messages.error(request, 'Invalid mobile number and password')
@@ -60,7 +69,7 @@ def signup(request):
                 user.referal_code = uuid.uuid4()
                 user.refered_by = ref_user
                 user.save()
-                ref_user.withdrawable_amount=ref_user.withdrawable_amount+100
+                ref_user.withdrawable_amount=ref_user.withdrawable_amount+25
                 ref_user.save()
             except:
                 messages.error(request, 'Invalid referral code')
@@ -180,7 +189,9 @@ def Recharge(request):
         recharge.save()
 
         return redirect("profile")
-    return render(request,'recharge.html')
+    upiObj=UPIAccount.objects.get()
+    
+    return render(request,'recharge.html',{"upiObj":upiObj})
 
 @login_required(login_url='signin')
 def PurchaseProducts(request,pid):
@@ -229,8 +240,8 @@ def PurchaseProducts(request,pid):
             purchase.save()
         addTransaction(amount=prod.prod_price,userId=request.user,credited=False,tag="Purchased "+prod.prod_name)        
         return redirect('profile')
-    
-    return render(request, "purchase.html",{"prod":prod})
+    upiObj=UPIAccount.objects.get()
+    return render(request, "purchase.html",{"prod":prod,"upiObj":upiObj})
     
 
 

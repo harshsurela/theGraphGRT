@@ -115,9 +115,9 @@
             <div class="menu-area">
               <div class="header-btn">
                 {% if request.user.mobile_number %}
-                <a href="{% url 'logout' %}" class="trk-btn trk-btn--border trk-btn--primary">
+                <button onclick=logout() id="LogOut" class="trk-btn trk-btn--border trk-btn--primary">
                   <span>Logout</span>
-                </a>
+                </button>
 
                 {% else %}
                 <a href="{% url 'signup' %}" class="trk-btn trk-btn--border trk-btn--primary">
@@ -298,23 +298,47 @@
   <script src=" {% static 'js/custom.js' %} "></script>
   <script>
     const moon = document.getElementById('btnSwitch');
-    const icon = document.querySelector('#btnSwitch img');
-    moon.addEventListener('click', () => {
-        const theme = document.documentElement.getAttribute('data-bs-theme');
-        document.documentElement.setAttribute('data-bs-theme', theme === 'dark' ? 'light' : 'dark');
-        if (theme === 'light') {
-            icon.src = "{% static 'images/icon/sun.png' %}";
-            moon.style.backgroundColor = 'white';
-        } else {
-            icon.src = "{% static 'images/icon/moon.svg' %}";
-            moon.style.backgroundColor = '#6647eb';
-        }
+const icon = document.querySelector('#btnSwitch img');
 
-        //changeImage();
-    });
+// Check if theme preference is stored in local storage
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    document.documentElement.setAttribute('data-bs-theme', savedTheme);
+
+    if (savedTheme === 'light') {
+        icon.src = "{% static 'images/icon/sun.png' %}";
+        moon.style.backgroundColor = 'white';
+    } else {
+        icon.src = "{% static 'images/icon/moon.svg' %}";
+        moon.style.backgroundColor = '#6647eb';
+    }
+}
+
+moon.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+    // Save the theme preference to local storage
+    localStorage.setItem('theme', newTheme);
+
+    document.documentElement.setAttribute('data-bs-theme', newTheme);
+
+    if (newTheme === 'light') {
+        icon.src = "{% static 'images/icon/sun.png' %}";
+        moon.style.backgroundColor = 'white';
+    } else {
+        icon.src = "{% static 'images/icon/moon.svg' %}";
+        moon.style.backgroundColor = '#6647eb';
+    }
+});
+function logout() {
+                localStorage.removeItem("popupModalShown");
+        window.location.href="{% url 'logout' %}"
+    }
   </script>
   {% block js %}
   {% endblock %}
+
 </body>
 
 </html>
