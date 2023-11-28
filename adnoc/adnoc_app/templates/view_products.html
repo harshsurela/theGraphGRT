@@ -19,18 +19,18 @@
 </style>
 {% endblock %}
 
-{% block content %} 
+{% block content %}
 
  <section class="product padding-top padding-bottom product_bg">
     <div class="container">
       <div class="section-header d-md-flex align-items-center justify-content-between">
         <div class="section-header__content">
           <h2 class="mb-15 mt-30"><span>Products</span> </h2>
-          
+
         </div>
-        
+
     </div>
-    
+
     <!-- <div class="container">
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {% for prod in products %}
@@ -204,7 +204,7 @@
                     </div>
                   </div>
                   <div class="service__content">
-                    <h5 class="mb-15 text-center"> <a class="stretched-link" href="{% url 'purchaseprod' pid=p.id %}">{{p.prod_name}}</a> </h5>
+                    <h5 class="mb-15 text-center"> <a class="stretched-link" href="{% url 'purchaseprod' pid=p.id %}" style="color: var(--tertiary-color);">{{p.prod_name}}</a> </h5>
                   </div>
                   <div class="service__content">
                     <span>Price : {{p.prod_price}}<small>Rs</small></span>
@@ -232,6 +232,6 @@
         </div>
       </div>
 
-    
+
   </section>
   {% endblock %}

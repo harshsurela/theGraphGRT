@@ -348,7 +348,7 @@ body {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
-  font-size: 62.5%;
+  /*font-size: 62.5%;*/
   /*  (10 px in REM size) */
 }
 
@@ -1323,6 +1323,12 @@ body.panel-closing .bottom-toolbar {
   margin: auto;
 }
 
+@media screen and (max-width: 768px){
+    .user-profile__thumb img {
+      width: 80px;
+    }
+}
+
 .user-profile__name {
   width: 100%;
   text-align: center;
@@ -1355,7 +1361,7 @@ body.panel-closing .bottom-toolbar {
 .info-box span {
   display: block;
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: #5160eb;
 }
 

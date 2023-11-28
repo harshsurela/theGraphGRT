@@ -11,7 +11,7 @@
   <meta meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   <!-- Sites meta Data -->
-  
+
   <link rel="shortcut icon" href="{% static 'images/logo/adnoc.png' %}" type="image/x-icon">
 
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %} ">
@@ -133,7 +133,7 @@
 
 
   <!-- ===============>> account start here <<================= -->
-  <section class="account padding-top padding-bottom sec-bg-color2">
+  <section class="account padding-top padding-bottom sec-bg-color2" style="height: 100vh; display: flex; align-items: center;">
     <div class="container">
       <div class="account__wrapper" data-aos="fade-up" data-aos-duration="800">
         <div class="account__inner">
@@ -149,16 +149,16 @@
                 <!-- account tittle -->
                 <div class="account__header">
                   <h2>Register</h2>
-                  
+
                 </div>
 
                 <!-- account social -->
-                
+
                 <!-- account divider -->
                 {% for message in messages %}
                     <div class="container-fluid p-0">
                     <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
-                        
+
                         {{ message }}
                     </div>
                     </div>
@@ -210,12 +210,12 @@
                         {% else %}
                         <input type="text" class="form-control" id="ref" name="ref" placeholder="Referral code">
                         {% endif %}
-                        
+
                       </div>
                     </div>
                   </div>
 
-                  
+
                   <button type="submit" class="trk-btn trk-btn--border trk-btn--primary d-block mt-4 text-white">Sign up</button>
                 </form>
 
@@ -267,7 +267,7 @@
     function showPassword() {
       var passwordInput = document.getElementById("passw");
       var currentType = passwordInput.getAttribute("type");
-  
+
       if (currentType === "password") {
         passwordInput.setAttribute("type", "text");
       } else {
@@ -277,7 +277,7 @@
     function cshowPassword() {
       var passwordInput = document.getElementById("cpassw");
       var currentType = passwordInput.getAttribute("type");
-  
+
       if (currentType === "password") {
         passwordInput.setAttribute("type", "text");
       } else {
@@ -287,7 +287,7 @@
     function checkPasswordsMatch() {
       var password = document.getElementById("passw").value;
       var confirmPassword = document.getElementById("cpassw").value;
-      
+
 
       if (password !== confirmPassword) {
           alert("Passwords do not match.");
@@ -296,7 +296,7 @@
       else{
         return true;
       }
-      
+
   }
 
   document.getElementById("signupForm").onsubmit = function () {

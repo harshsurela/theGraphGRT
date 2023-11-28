@@ -9,7 +9,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <!-- Sites meta Data -->
   <link rel="shortcut icon" href="{% static 'images/logo/adnoc.png' %}" type="image/x-icon">
 
@@ -133,7 +133,7 @@
 
 
   <!-- ===============>> account start here <<================= -->
-  <section class="account padding-top padding-bottom sec-bg-color2">
+  <section class="account padding-top padding-bottom sec-bg-color2" style="height: 100vh; display: flex; align-items: center;">
     <div class="container">
       <div class="account__wrapper" data-aos="fade-up" data-aos-duration="800">
         <div class="account__inner">
@@ -154,12 +154,12 @@
                 </div>
 
                 <!-- account social -->
-                
+
                 <!-- account divider -->
                 {% for message in messages %}
                     <div class="container-fluid p-0">
                     <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
-                        
+
                         {{ message }}
                     </div>
                     </div>
@@ -255,7 +255,7 @@
     function showPassword() {
       var passwordInput = document.getElementById("passw");
       var currentType = passwordInput.getAttribute("type");
-  
+
       if (currentType === "password") {
         passwordInput.setAttribute("type", "text");
       } else {

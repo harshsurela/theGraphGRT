@@ -61,7 +61,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Bank Details</h5>
-                    
+
                   </div>
                   <div class="modal-body">
                     <div id="modal-content">
@@ -83,11 +83,11 @@
                   {% if page_obj.has_previous %}
                       <a href="?page={{ page_obj.previous_page_number }}"><button style="background-color:black;"><i class="bi bi-caret-left-fill" style="color: white;"></i></button></a>
                   {% endif %}
-          
+
                   <span class="current">
                       Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                   </span>
-          
+
                   {% if page_obj.has_next %}
                       <a href="?page={{ page_obj.next_page_number }}"><button style="background-color:black;"><i class="bi bi-caret-right-fill" style="color:white;"></i></button></a>
                   {% endif %}
@@ -97,9 +97,7 @@
         </div>
       </div>
     </div>
-    
-    
-</div>
+
 
 {% endblock %}
 
@@ -112,7 +110,7 @@
     $('.open-modal').click(function () {
         var id = $(this).data('id');
         $.get('/userBankDetails/' + id, function (data) {
-          
+
             if (Object.keys(data).length > 0) {
                 var content = `
                     <p>Account Holder Name: ${data.accname}</p>
@@ -120,8 +118,8 @@
                     <p>IFSC Code: ${data.ifsc}</p>
                     <p>Account Type: ${data.acctype}</p>
                     <p>Mobile Number: ${data.mobnum}</p>
-                    
-                    
+
+
                 `;
                 $('#modal-content').html(content);
                 $('#myModal').modal('show');
