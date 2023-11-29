@@ -10,6 +10,10 @@
       <div class="card" >
         <div class="card-body " style="border-radius: 5px;">
           <h4 class="card-title">Recharge Requests</h4>
+          <div class="d-flex flex-row gap-2">
+            <input type="text" class="rounded py-3 px-4 border-0" style="width: 100%; background-color: lavender;" placeholder="Search transaction" id="searchInput">
+            <button class="btn btn-dark rounded">Submit</button>
+        </div>
           <div class="table-responsive">
             <table class="table">
               <thead>
@@ -27,7 +31,7 @@
                 <tr>
                   <td>{{ur.user_id.username}}</td>
                   <td>{{ur.recharge_amount}}</td>
-                  <td>{{ur.transaction_id}}</td>
+                  <td class="tId">{{ur.transaction_id}}</td>
                   <td>{{ur.recharge_date}}</td>
                   <td><a href="{% url 'rechargereqVerification' rid=ur.id %}" onclick="return confirm('Are you sure you want to validate this request?');"><i class="bi bi-check-circle" style="font-size: 20px; color: green"></i></a>
                     <a href="{% url 'removeRechargeRequest' rid=ur.id %}" onclick="return confirm('Are you sure you want to cancel this request?');"><i class="bi bi-x-circle" style="font-size: 20px; color: red; margin-left: 15px;"></i></a>
@@ -60,5 +64,24 @@
 </div>
 
 {% endblock %}
+{% block js %}
 
+<script>
+
+  $(document).ready(function () {
+    $('#searchInput').on('keyup', function () {
+      let value = $(this).val().toLowerCase();
+      $('tbody tr').each(function () {
+        let row = $(this);
+        let tagCell = row.find('.tId');
+        let tagText = tagCell.text().toLowerCase();
+
+        let isRowVisible = tagText.indexOf(value) > -1;
+        row.toggle(isRowVisible);
+      });
+    });
+  });
+</script>
+
+{% endblock %}
 
