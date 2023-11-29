@@ -290,7 +290,8 @@ def myplans(request):
 
 @login_required(login_url='signin')
 def mytransactions(request):
-    transobj = transactions.objects.filter(user_id = request.user.id)
+    # want to also exclude the transactions that conatins tag name as "Daily income credited"
+    transobj = transactions.objects.filter(user_id = request.user.id).exclude(tag__contains="Daily income credited")
     return render(request,"myTransactions.html",{"trans":transobj})
 
 @login_required(login_url='signin')
