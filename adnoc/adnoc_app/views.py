@@ -187,7 +187,7 @@ def Recharge(request):
         recharge.recharge_date = datetime.today()
         recharge.recharge_amount = tamt
         recharge.save()
-
+        addTransaction(amount=tamt,userId=request.user,credited=False,tag="Recharge request was initiated",status=0)
         return redirect("profile")
     upiObj=UPIAccount.objects.get()
     
@@ -211,6 +211,7 @@ def PurchaseProducts(request,pid):
                 purchase.purchase_date = datetime.today()
                 purchase.is_approved =True
                 purchase.save()
+                addTransaction(amount=prod.prod_price,userId=request.user,credited=False,tag="Purchased "+prod.prod_name,status=1) 
             else:
                 messages.error(request,"Insufficient recharge amount")
                 return render(request, "purchase.html",{"prod":prod})
@@ -226,6 +227,7 @@ def PurchaseProducts(request,pid):
                 purchase.purchase_date = datetime.today()
                 purchase.is_approved =True
                 purchase.save()
+                addTransaction(amount=prod.prod_price,userId=request.user,credited=False,tag="Purchased "+prod.prod_name,status=1) 
             else:
                 messages.error(request,"Insufficient interestwallet amount")
                 return render(request, "purchase.html",{"prod":prod})
@@ -238,8 +240,8 @@ def PurchaseProducts(request,pid):
             purchase.transaction_image = timg
             purchase.purchase_date = datetime.today()
             purchase.save()
-        addTransaction(amount=prod.prod_price,userId=request.user,credited=False,tag="Purchased "+prod.prod_name)        
-        return redirect('profile')
+            addTransaction(amount=prod.prod_price,userId=request.user,credited=False,tag="Purchased "+prod.prod_name,status=0)        
+        return redirect('profile')  
     upiObj=UPIAccount.objects.get()
     return render(request, "purchase.html",{"prod":prod,"upiObj":upiObj})
     
@@ -276,7 +278,14 @@ def adnocviewsdb(request):
 @login_required(login_url='signin')
 def myplans(request):
     product_purchase = Purchase.objects.filter(user_id = request.user.id,is_approved=True)
-    return render(request,"myplans.html",{"plans":product_purchase})
+    remaining_days=[]
+    for purchase in product_purchase:
+        days = datetime.today() - purchase.purchase_date.replace(tzinfo=None)
+        total_days = days.days
+        remaining_days.append(purchase.prod_id.validity_period - total_days)
+        
+    zipped = zip(product_purchase, remaining_days)
+    return render(request,"myplans.html",{"zipped":zipped})
 
 
 @login_required(login_url='signin')
@@ -341,6 +350,7 @@ def withDrawReq(request):
         accnum = request.POST.get('accnum')
         ifsc = request.POST.get('ifsc')
         mobnum = request.POST.get('mobnum')
+        acctype= request.POST.get('acctype')
 
         if amount <= withdrawable_amt:
             user.withdrawable_amount = withdrawable_amt - amount
@@ -436,40 +446,47 @@ def adminRechargeRequest(request):
     return HttpResponse("updated") 
 
 
-def walletHistory(request):
-    product_purchase = Purchase.objects.filter(is_approved=True)
-    product_list = []
-    today_date = datetime.now()
+# def walletHistory(request):
+#     product_purchase = Purchase.objects.filter(is_approved=True)
+#     product_list = []
+#     today_date = datetime.now()
     
-    for purchase in product_purchase:
-        try: 
-            product = Product.objects.get(id = purchase.prod_id.id)
-            user = AdnocUser.objects.get(id= purchase.user_id.id)
-            wallet_product = WalletHistory.objects.filter(user_purchase__id = purchase.id,transaction_date__date = today_date)
-            if not wallet_product.exists():
-                wall_history = WalletHistory()
-                days = today_date - purchase.purchase_date.replace(tzinfo=None)
-                total_days = days.days
-                if total_days <= product.validity_period:
-                    if user.withdrawable_amount is not None:
-                        user.withdrawable_amount = F('withdrawable_amount') + product.daily_inc
-                        user.save()
-                    else:
-                        user.withdrawable_amount = 0
-                        user.save()
-                        user.withdrawable_amount = F('withdrawable_amount') + product.daily_inc
-                        user.save()    
-                    wall_history.earning = product.daily_inc
-                    wall_history.user_purchase = purchase   
-                    wall_history.transaction_date = today_date
-                    wall_history.save()
-                    addTransaction(amount=product.daily_inc,userId=user,credited=True,tag="Daily income credited for "+product.prod_name)        
-        except Exception as e:
-            pass
+#     for purchase in product_purchase:
+#         try: 
+#             product = Product.objects.get(id = purchase.prod_id.id)
+#             user = AdnocUser.objects.get(id= purchase.user_id.id)
+#             wallet_product = WalletHistory.objects.filter(user_purchase__id = purchase.id,transaction_date__date = today_date)
+#             if not wallet_product.exists():
+#                 wall_history = WalletHistory()
+#                 days = today_date - purchase.purchase_date.replace(tzinfo=None)
+#                 total_days = days.days
+#                 if total_days <= product.validity_period:
+#                     if user.withdrawable_amount is not None:
+#                         user.withdrawable_amount = F('withdrawable_amount') + product.daily_inc
+#                         user.save()
+#                     else:
+#                         user.withdrawable_amount = 0
+#                         user.save()
+#                         user.withdrawable_amount = F('withdrawable_amount') + product.daily_inc
+#                         user.save()    
+#                     wall_history.earning = product.daily_inc
+#                     wall_history.user_purchase = purchase   
+#                     wall_history.transaction_date = today_date
+#                     wall_history.save()
+#                     addTransaction(amount=product.daily_inc,userId=user,credited=True,tag="Daily income credited for "+product.prod_name,status=1)        
+#         except Exception as e:
+#             pass
 
-    return HttpResponse("done")
-
-
+#     return HttpResponse("done")
 
 
-# for otp
+
+def profitList(request):
+    tras=transactions.objects.filter(user_id=request.user,tag__contains="Daily income credited")
+    print(tras)
+    return render(request,"profitList.html",{"allTrans":tras})
+
+    
+
+
+

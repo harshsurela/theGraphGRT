@@ -33,7 +33,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d+&f^bu+5sfunw7=opfvn(ex$)71waiff3*2h^%03i9eg^#fy-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'adnoc_app',
     'whitenoise',
     'adminPanel',
+    'mathfilters',
+
 ]
 
 MIDDLEWARE = [
@@ -78,6 +80,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries':{
+            'tags': 'adnoc_app.templateTags.tags',
+            
+            }
         },
     },
 ]

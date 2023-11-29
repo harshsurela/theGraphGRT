@@ -33,21 +33,39 @@
                     <tr>
                         <th>#</th>
                         <th>Amount</th>
-                        <th>C\D</th>
+                        <!-- <th>C\D</th> -->
                         <th>Intent</th>
+                        <th>Payment Status</th>
                         <th>Date</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% if trans %}
                     {% for t in trans %}
-                        <tr>
-                            <td>{{forloop.counter}}</td>
-                            <td>{{t.amount}} ₹ </td>
-                            <td>{% if t.credited %}Credit{% else %}Debit{% endif %}</td>
-                            <td>{{t.tag}}</td>
-                            <td>{{t.trans_date}}</td>                            
-                        </tr>
-                    {% endfor %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{t.amount}} ₹ </td>
+                        <!-- <td>{% if t.credited %}Credit{% else %}Debit{% endif %}</td> -->
+                        <td>{{t.tag}}</td>
+                        {% if t.payment_status == 0 %}
+                        <td><label for="" class="badge bg-warning">Pending</label></td>
+                        {% endif %}
+                        {% if t.payment_status == 1 %}
+                        <td><label for="" class="badge bg-success">Success</label></td>
+                        {% endif %}
+
+                        {% if t.payment_status == 2 %}
+                        <td><label for="" class="badge bg-danger">Failed</label></td>
+                        {% endif %}
+                        <td>{{t.trans_date}}</td>                            
+                    </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center">No Transactions</td>
+                </tr>
+
+                    {% endif %}
                     
                 </tbody>
               </table>

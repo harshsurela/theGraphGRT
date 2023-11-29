@@ -40,23 +40,33 @@
                   </tr>
                 </thead>
                 <tbody>
-                    {% for i in history %}
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="row">{{forloop.counter}}</th>
-                    <td>{{i.request_date}}</td>
-                    <td>{{i.amount}}</td>
-                    {% if i.status|lower == "pending" %}
-                    <td class="text-warning">{{i.status}}</td>
-                    {% elif i.status|lower == "success" %}
-                    <td class="text-success">{{i.status}}</td>
-                    {% else %}
-                    <td class="text-danger">{{i.status}}</td>
-                    {% endif %}
-                    
-                  </tr>
-                  {% endfor %}
+                   {% if history %}
+                   {% for i in history %}
+                   <tr>
+                     <th scope="col"></th>
+                     <th scope="row">{{forloop.counter}}</th>
+                     <td>{{i.request_date}}</td>
+                     <td class="text-danger">- {{i.amount}}</td>
+                     {% if i.status|lower == "pending" %}
+                     <td class="text-warning">{{i.status}}</td>
+                     {% elif i.status|lower == "success" %}
+                     <td class="text-success">{{i.status}}</td>
+                     {% else %}
+                     <td class="text-danger">{{i.status}}</td>
+                     {% endif %}
+                     
+                   </tr>
+                   {% endfor %}
                   
+                   {% else %}
+                   <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>No History Found</td>
+                    <td></td>
+                   </tr>
+                   {% endif %}
                 </tbody>
               </table>
         </div>

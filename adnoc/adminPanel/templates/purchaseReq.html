@@ -33,7 +33,7 @@
                   <td>{{ prod.transaction_id }}</td>
                   <td>{{ prod.purchase_date }}</td>
                   <td>{{ prod.user_id.username }}</td>
-                  <td><a href="{% url 'prodApproved' pid=prod.id %}" onclick="return confirm('Are you sure you want to validate this request?');"><i class="bi bi-check-circle" style="font-size: 20px; color: green"></i></a></td>
+                  <td><a href="{% url 'prodApproved' pid=prod.id %}" onclick="return confirm('Are you sure you want to validate this request?');"><i class="bi bi-check-circle" style="font-size: 20px; color: green"></i></a><a href="{% url 'removePurchaseRequest' pid=prod.id %}" onclick="return confirm('Are you sure you want to cancel this request?');"><i class="bi bi-x-circle" style="font-size: 20px; color: red; margin-left: 15px;"></i></a></td>
                 </tr>
 
                 {% endfor %}

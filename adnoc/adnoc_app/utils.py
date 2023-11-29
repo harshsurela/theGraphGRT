@@ -1,11 +1,12 @@
 from .models import transactions
 
-def addTransaction(amount,userId,credited,tag):
+def addTransaction(amount,userId,credited,tag,status):
     transObj = transactions()
     transObj.amount = amount
     transObj.user_id = userId
     transObj.credited = credited
     transObj.tag = tag
+    transObj.payment_status = status
     transObj.save()
     
 def findReferrals(user, level=0,tmp=None):

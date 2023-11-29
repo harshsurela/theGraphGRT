@@ -7,6 +7,7 @@ urlpatterns = [
     path("rechargeReq/",views.rechargeReq,name="rechargeReq"),
     path("rechargereqVerification/<int:rid>",views.rechargereqVerification,name="rechargereqVerification"),
     path("removeRechargeRequest/<int:rid>", views.removeRechargeRequest, name="removeRechargeRequest"),
+    path("removePurchaseRequest/<int:pid>", views.removePurchaseRequest, name="removePurchaseRequest"),
     path("totalRecharge/",views.totalRecharge,name="totalRecharge"),
     path("purchaseReq/",views.purchaseReq,name="purchaseReq"),
     path("prodApproved/<int:pid>",views.prodApproved,name="prodApproved"),

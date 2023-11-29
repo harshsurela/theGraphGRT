@@ -23,10 +23,11 @@ urlpatterns = [
     path("",views.UserProfile,name="profile"),
     path("withdrawreq/",views.withDrawReq,name="withdrawreq"),
     path("withdrawhistory/",views.withDrawHistory,name="withdrawhistory"),
+    path("profitList/",views.profitList,name="profitList"),
 
-    path("wallethistory/",views.walletHistory,name="wallethistory"),
+    # path("wallethistory/",views.walletHistory,name="wallethistory"),
 
     # admin urls
-    path("updateUserRecharge/",views.adminRechargeRequest,name="adminRechargeRequest")
+    path("updateUserRecharge/",views.adminRechargeRequest,name="adminRechargeRequest"),
 
 ]

@@ -35,7 +35,7 @@
 <div class="team team--details padding-top padding-bottom bg-color-3">
   <div class="page__content">
     <div class="user-profile mb-20 user_profile">
-      <div class="user-profile__thumb"><img src="{% static 'profile/image/user.png' %} " alt="" title=""/></div>
+      <div class="user-profile__thumb"><img src="{% static '/images/logo/adnoc.png' %} " alt="" title=""/></div>
       <div class="user-profile__name">{{request.user.username}}</div>
       <div class="buttons buttons--centered">
         <div class="info-box"><span>Total Profit</span>{{total_inc}}<small>Rs</small></div>
@@ -96,13 +96,16 @@
               <a href="#" data-toggle="modal" data-target="#referralModal"><div class="info-box-a"><i class="bi bi-send-plus-fill iconheight"></i>&nbsp;&nbsp;<span class="card-list-item">Invite</span></div></a>
             </div>
             <div class="card-body card-link">
-              <a href="{% url 'withdrawhistory' %}" style="text-decoration:none !important;"><div class="info-box-a"><i class="bi bi-microsoft-teams iconheight"></i>&nbsp;&nbsp;<span class="card-list-item">Withdrawal Request </span></div></a>
+              <a href="{% url 'withdrawhistory' %}" style="text-decoration:none !important;"><div class="info-box-a"><i class="bi bi-microsoft-teams iconheight"></i>&nbsp;&nbsp;<span class="card-list-item">Withdrawal List </span></div></a>
+            </div>
+            <div class="card-body card-link">
+              <a href="{% url 'profitList' %}" style="text-decoration:none !important;"><div class="info-box-a"><i class="bi bi-wallet2 iconheight"></i>&nbsp;&nbsp;<span class="card-list-item">Profit List </span></div></a>
             </div>
             <div class="card-body card-link">
               <a href="{% static 'app/app-release.apk' %}" style="text-decoration:none !important;" download="Adnoc"><div class="info-box-a"><i class="bi bi-download"></i>&nbsp;&nbsp;<span class="card-list-item">App Download</span></div></a>
             </div>
             <div class="card-body card-link">
-              <a href="" style="text-decoration:none !important;"><div class="info-box-a"><i class="bi bi-headset"></i>&nbsp;&nbsp;<span class="card-list-item">Contect Support Team</span></div></a>
+              <a href="" style="text-decoration:none !important;"><div class="info-box-a"><i class="bi bi-headset"></i>&nbsp;&nbsp;<span class="card-list-item">Contact Support Team</span></div></a>
             </div>
 
 

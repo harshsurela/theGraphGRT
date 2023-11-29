@@ -35,37 +35,28 @@
                 <thead class="table-dark">
                     <tr>
                         <th>Plan</th>
-                        <th>Returns</th>
-                        <th>Received</th>
-                        <th>Purchased Date</th>
-                        <th>Days Remaining</th>
+                        <th>Transaction Date</th>
+                        <th>Daily Income</th>
                         
                     </tr>
                 </thead>
                 <tbody>
-                   {% if  zipped  %}
-                   {% for p,day in zipped %}
+                   {% if allTrans %}
+                   {% for t in allTrans %}
                    <tr>
-                       <td>{{p.prod_id.prod_name}}</td>
-                       <td>{{p.prod_id.daily_inc}}₹  every day<br>{{p.prod_id.validity_period}} days</td>
-                       <td>{{p.purchase_date|totalDaysTillToday}} * {{p.prod_id.daily_inc}}₹  = {{p.purchase_date|totalDaysTillToday|mul:p.prod_id.daily_inc}}₹ </td>
-                       <td>{{p.purchase_date}}</td>
-                       <td>
-                           {{day}}
-                           days
-                       </td>
+                       <td>{{t.tag|slice:"-7:"}}</td>
+                       <td>{{t.trans_date}}</td>
+                       <td class="text-success">+ {{t.amount}}₹ </td>
+                   
                    </tr>
                {% endfor %}
                {% else %}
                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>No Plans are active...</td>
-                <td></td>
-
+                   <td></td>
+                   <td>No Data</td>
                </tr>
                    {% endif %}
+                    
                 </tbody>
               </table>
               

@@ -59,7 +59,12 @@ def rechargereqVerification(request, rid):
 
         recharge.is_credited = True
         recharge.save()
-        addTransaction(amount=reqObj.recharge_amount,userId=reqObj,credited=True,tag="recharge request was completed")
+        tran = transactions.objects.get(user_id=recharge.user_id.id,amount=recharge.recharge_amount)
+        print(tran)
+        tran.payment_status = 1
+        tran.tag = "Recharge of "+str(recharge.recharge_amount)+" was successful"
+        tran.save()
+
         return redirect('rechargeReq')
     except Exception as e:
         print(e)
@@ -70,12 +75,33 @@ def rechargereqVerification(request, rid):
 def removeRechargeRequest(request, rid):
     try:
         recharge = UserRecharge.objects.get(id=rid)
-        addTransaction(amount=recharge.recharge_amount,userId=recharge.user_id,credited=True,tag="recharge request was cancelled")
+        # get the traction for this and update the transaction status
+        tran = transactions.objects.get(user_id=recharge.user_id.id,amount=recharge.recharge_amount)
+        print(tran)
+        tran.payment_status = 2
+        tran.tag = "Recharge of "+str(recharge.recharge_amount)+" was failed"
+        tran.save()
         recharge.delete()
         return redirect('rechargeReq')
     except Exception as e:
         print(e)
         pass
+@login_required(login_url='adminLogin')
+def removePurchaseRequest(request, pid):
+    try:
+        prod = Purchase.objects.get(id=pid)
+        # get the traction for this and update the transaction status
+        tran = transactions.objects.get(user_id=prod.user_id.id,amount=prod.prod_id.prod_price)
+        print(tran)
+        tran.payment_status = 2
+        tran.tag = "Purchase of "+str(prod.prod_id.prod_name)+" was failed"
+        tran.save()
+        prod.delete()
+        return redirect('purchaseReq')
+    except Exception as e:
+        print(e)
+        pass
+
 
 
 @login_required(login_url='adminLogin')
@@ -103,6 +129,11 @@ def prodApproved(request, pid):
         prod = Purchase.objects.get(id=pid)
         prod.is_approved = True
         prod.save()
+        # get the transaction for this and update the transaction status
+        tran = transactions.objects.get(user_id=prod.user_id.id)
+        print(tran)
+        tran.payment_status = 1
+        tran.save()
         return redirect('purchaseReq')
     except Exception as e:
         print(e)
@@ -186,12 +217,13 @@ def walletHistory(request):
                     wall_history.user_purchase = purchase   
                     wall_history.transaction_date = today_date
                     wall_history.save()
-                    refByUser=AdnocUser.objects.get(mobile_number=user.refered_by.mobile_number)
-                    print("refered by ",refByUser)
-                    refByUser.withdrawable_amount=refByUser.withdrawable_amount+(product.daily_inc*0.005)
-
-                    refByUser.save()
-                    addTransaction(amount=product.daily_inc,userId=user,credited=True,tag="Daily income credited for "+product.prod_name)        
+                    # print("refered by ",refByUser)
+                    if user.refered_by is not None:
+                        refByUser=AdnocUser.objects.get(mobile_number=user.refered_by.mobile_number)
+                        refByUser.withdrawable_amount=refByUser.withdrawable_amount+(product.daily_inc*0.005)
+                        refByUser.save()
+                        addTransaction(amount=product.daily_inc,userId=refByUser,credited=True,tag=" commision credited",status=1) 
+                    addTransaction(amount=product.daily_inc,userId=user,credited=True,tag="Daily income credited for "+product.prod_name,status=1)        
         except Exception as e:
             print(e)
 

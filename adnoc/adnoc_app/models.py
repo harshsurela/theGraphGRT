@@ -134,6 +134,7 @@ class transactions(models.Model):
     user_id = models.ForeignKey("AdnocUser", on_delete=models.CASCADE)
     credited = models.BooleanField()
     tag = models.TextField()
+    payment_status=models.IntegerField(default=0) #0 for pending, 1 for success, 2 for failed
 
     def __str__(self):
         return str(self.id)
